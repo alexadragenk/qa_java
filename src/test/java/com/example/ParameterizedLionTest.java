@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.mockito.Mockito;
 
 @RunWith(Parameterized.class)
 public class ParameterizedLionTest {
@@ -14,7 +15,7 @@ public class ParameterizedLionTest {
             this.sex = sex;
             this.hasMane = hasMane;
         }
-        @Parameterized.Parameters
+        @Parameterized.Parameters(name = "Пол: {0}, грива: {1}")
         public static Object[][] lionTestData() {
             return new Object[][] {
                     { "Самец", true},
@@ -23,7 +24,8 @@ public class ParameterizedLionTest {
         }
     @Test
     public void doesHaveManeReturnCorrectValue() throws Exception {
-        Lion lion = new Lion(sex);
+        Feline feline = Mockito.mock(Feline.class);
+        Lion lion = new Lion(sex, feline);
         boolean actualMane = lion.doesHaveMane();
         boolean expectedMane = hasMane;
         Assert.assertEquals(expectedMane, actualMane);

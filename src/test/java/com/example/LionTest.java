@@ -10,15 +10,17 @@ import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LionTest {
+
     @Mock
     Feline feline;
+    private static final String sex = "Самец";
     @Test(expected = Exception.class)
     public void doesHaveManeReturnException() throws Exception {
-        new Lion("Небинарный лев");
+        new Lion("Небинарный лев", feline);
     }
     @Test
-    public void getKittensShouldReturnCorrectValue() {
-        Lion lion = new Lion(feline);
+    public void getKittensShouldReturnCorrectValue() throws Exception {
+        Lion lion = new Lion(sex, feline);
         int expectedCount = 1;
         Mockito.when(feline.getKittens()).thenReturn(expectedCount);
         int actualCount = lion.getKittens();
@@ -26,7 +28,7 @@ public class LionTest {
     }
     @Test
     public void getFoodShouldReturnPredatorFood() throws Exception {
-        Lion lion = new Lion(feline);
+        Lion lion = new Lion(sex, feline);
         List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
         Mockito.when(feline.getFood("Хищник")).thenReturn(expectedFood);
         List<String> actualFood = lion.getFood();

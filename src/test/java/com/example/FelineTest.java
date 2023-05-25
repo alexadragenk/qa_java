@@ -13,8 +13,8 @@ public class FelineTest {
     @Test
     public void eatMeatShouldReturnPredatorFood() throws Exception {
         List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
-        Mockito.when(feline.getFood("Хищник")).thenReturn(expectedFood);
         List<String> actualFood = feline.eatMeat();
+        Mockito.verify(feline, Mockito.times(1)).getFood("Хищник");
         Assert.assertEquals(expectedFood, actualFood);
     }
     @Test
@@ -26,8 +26,8 @@ public class FelineTest {
     @Test
     public void getKittensShouldReturn1() {
         int expectedCount = 1;
-        Mockito.when(feline.getKittens(expectedCount)).thenReturn(expectedCount);
         int actualCount = feline.getKittens();
+        Mockito.verify(feline, Mockito.times(1)).getKittens(expectedCount);
         Assert.assertEquals(expectedCount, actualCount);
     }
     @Test
